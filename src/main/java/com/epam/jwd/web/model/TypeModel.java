@@ -13,5 +13,6 @@ public enum TypeModel {
     STATUS_MODEL,
     STREET_MODEL,
     USER_MODEL,
-    USER_DETAILS_MODEL
+    USER_DETAILS_MODEL,
+    ORDER_ELEMENT
 }

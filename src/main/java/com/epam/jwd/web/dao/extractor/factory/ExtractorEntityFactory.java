@@ -9,7 +9,7 @@ import com.epam.jwd.web.model.Entity;
 import java.sql.ResultSet;
 import java.util.concurrent.locks.ReentrantLock;
 
-public class ExtractorEntityFactory implements ExtractorFactory<Entity>{
+public class ExtractorEntityFactory implements ExtractorFactory<Entity> {
 
     private static final ReentrantLock lock = new ReentrantLock();
     private static ExtractorEntityFactory instance;
@@ -22,11 +22,11 @@ public class ExtractorEntityFactory implements ExtractorFactory<Entity>{
             , TypeExtractor type) throws EntityExtractorNotFoundException {
         switch (type) {
             case USER_EXTRACTOR:
-                return new UserSetExtractor();
+                return UserSetExtractor.of();
             case ORDER_EXTRACTOR:
-                return new CafeOrderSetExtractor();
+                return CafeOrderSetExtractor.of();
             case CARD_EXTRACTOR:
-                return new CardSetExtractor();
+                return CardSetExtractor.of();
             case CITY_EXTRACTOR:
             case BONUS_EXTRACTOR:
             case STATUS_EXTRACTOR:
@@ -34,12 +34,15 @@ public class ExtractorEntityFactory implements ExtractorFactory<Entity>{
             case CATEGORY_EXTRACTOR:
             case INGREDIENT_EXTRACTOR:
             case ROLE_EXTRACTOR:
-                return new SimpleEntitySetExtractor(type);
+                return SimpleEntitySetExtractor.of(type);
             case MEAL_EXTRACTOR:
-                return new MealSetExtractor();
+                return MealSetExtractor.of();
+            case ORDER_ELEMENT_EXTRACTOR:
+                return OrderElementExtractor.of();
             case ADDRESS_EXTRACTOR:
-                return new AddressSetExtractor();
+                return AddressSetExtractor.of();
             case USER_DETAILS_EXTRACTOR:
+                return UserDetailsSetExtractor.of();
             default:
                 throw new EntityExtractorNotFoundException("Entity extractor not found!");
         }

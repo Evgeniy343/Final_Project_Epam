@@ -21,6 +21,9 @@ public class EntityFactory {
             case CAFE_ORDER_MODEL:
                 return CafeOrder.of(context.getId(), context.getCafeOrderPrice(), context.getDate(),
                         context.getReview(), context.getRating());
+            case ORDER_ELEMENT:
+                return OrderElement.of(context.getId(),context.getTotalMealPrice()
+                        ,context.getMealAmount(), context.getMealName());
             case ADDRESS_MODEL:
                 return Address.of(context.getId(), context.getHouse(), context.getFlat());
             case MEAL_MODEL:
@@ -30,7 +33,7 @@ public class EntityFactory {
             case USER_DETAILS_MODEL:
                 return UserDetails.of(context.getId(), context.getPoint(), context.getBan());
             case CARD_MODEL:
-                return Card.of(context.getId(), context.getAmount());
+                return Card.of(context.getId(), context.getCardAmount());
             case CITY_MODEL:
                 return City.of(simpleContext.getId(), simpleContext.getName());
             case CATEGORY_MODEL:

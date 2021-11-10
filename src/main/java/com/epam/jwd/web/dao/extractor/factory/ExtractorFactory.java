@@ -8,8 +8,9 @@ import com.epam.jwd.web.model.Entity;
 import java.sql.ResultSet;
 
 public interface ExtractorFactory<T> {
-    ResultSetExtractor<? extends Entity> createExtractor(ResultSet resultSet, TypeExtractor type) throws EntityExtractorNotFoundException;
-    static ExtractorFactory<Entity> newInstance(){
+    ResultSetExtractor<? extends Entity> createExtractor(ResultSet resultSet, TypeExtractor type)
+            throws EntityExtractorNotFoundException;
+    static ExtractorFactory<? extends Entity> newInstance(){
         return ExtractorEntityFactory.getInstance();
     }
 }
