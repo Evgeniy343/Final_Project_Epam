@@ -1,16 +1,12 @@
-package com.epam.jwd.web.dao.extractor.factory;
+package com.epam.jwd.web.dao.extractor.impl.factory;
 
-import com.epam.jwd.web.dao.exception.EntityExtractorNotFoundException;
 import com.epam.jwd.web.dao.extractor.ResultSetExtractor;
-import com.epam.jwd.web.dao.extractor.TypeExtractor;
 import com.epam.jwd.web.model.Entity;
+import com.epam.jwd.web.model.TypeEntity;
 
-import java.sql.ResultSet;
+public interface ExtractorFactory {
+    ResultSetExtractor<? extends Entity> createExtractor(TypeEntity type);
+    static ExtractorFactory newInstance(){
 
-public interface ExtractorFactory<T> {
-    ResultSetExtractor<? extends Entity> createExtractor(ResultSet resultSet, TypeExtractor type)
-            throws EntityExtractorNotFoundException;
-    static ExtractorFactory<? extends Entity> newInstance(){
-        return ExtractorEntityFactory.getInstance();
     }
 }
