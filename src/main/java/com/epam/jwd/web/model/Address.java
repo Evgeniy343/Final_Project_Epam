@@ -1,15 +1,13 @@
-package com.epam.jwd.web.model.impl;
-
-import com.epam.jwd.web.model.Entity;
+package com.epam.jwd.web.model;
 
 import java.util.Objects;
 
 public class Address implements Entity {
-    private final Long id;
-    private final City city;
-    private final Street street;
-    private final String house;
-    private final Integer flat;
+    private Long id;
+    private City city;
+    private Street street;
+    private String house;
+    private Integer flat;
 
 
     private Address(Long id, City city, Street street, String house, Integer flat) {
@@ -20,11 +18,19 @@ public class Address implements Entity {
         this.flat = flat;
     }
 
+    private Address() {
+
+    }
+
+    static Address of() {
+        return new Address();
+    }
+
     public static Builder with() {
         return new Builder();
     }
 
-     public static final class Builder {
+    public static final class Builder {
         private Long id;
         private City city;
         private Street street;

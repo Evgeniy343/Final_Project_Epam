@@ -1,21 +1,26 @@
-package com.epam.jwd.web.model.impl;
+package com.epam.jwd.web.model;
 
-import com.epam.jwd.web.model.Entity;
-
-import java.math.BigDecimal;
 import java.util.Objects;
 
 public class Meal implements Entity {
-    private final Long id;
-    private final String name;
-    private final BigDecimal price;
-    private final Category category;
+    private Long id;
+    private String name;
+    private Integer price;
+    private Category category;
 
-    private Meal(Long id, String name, BigDecimal price, Category category) {
+    private Meal(Long id, String name, Integer price, Category category) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.category = category;
+    }
+
+    private Meal() {
+
+    }
+
+    static Meal of() {
+        return new Meal();
     }
 
     public static Builder with() {
@@ -25,7 +30,7 @@ public class Meal implements Entity {
     public static final class Builder {
         private Long id;
         private String name;
-        private BigDecimal price;
+        private Integer price;
         private Category category;
 
         public Builder() {
@@ -41,7 +46,7 @@ public class Meal implements Entity {
             return this;
         }
 
-        public Builder price(BigDecimal price) {
+        public Builder price(Integer price) {
             this.price = price;
             return this;
         }
@@ -67,7 +72,10 @@ public class Meal implements Entity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Meal meal = (Meal) o;
-        return Objects.equals(id, meal.id) && Objects.equals(name, meal.name) && Objects.equals(price, meal.price) && Objects.equals(category, meal.category);
+        return Objects.equals(id, meal.id)
+                && Objects.equals(name, meal.name)
+                && Objects.equals(price, meal.price)
+                && Objects.equals(category, meal.category);
     }
 
     @Override
@@ -89,7 +97,7 @@ public class Meal implements Entity {
         return name;
     }
 
-    public BigDecimal getPrice() {
+    public Integer getPrice() {
         return price;
     }
 

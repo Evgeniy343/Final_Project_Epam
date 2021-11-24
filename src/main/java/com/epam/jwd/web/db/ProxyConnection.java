@@ -16,8 +16,8 @@ public class ProxyConnection implements Connection {
         this.pool = pool;
     }
 
-    public static ProxyConnection of(Connection connection, ConnectionPool pool){
-        return new ProxyConnection(connection,pool);
+    public static ProxyConnection of(Connection connection, ConnectionPool pool) {
+        return new ProxyConnection(connection, pool);
     }
 
     public ConnectionPool getPool() {

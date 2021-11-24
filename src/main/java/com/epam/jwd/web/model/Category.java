@@ -1,6 +1,4 @@
-package com.epam.jwd.web.model.impl;
-
-import com.epam.jwd.web.model.SimpleEntity;
+package com.epam.jwd.web.model;
 
 import java.util.Objects;
 
@@ -15,7 +13,7 @@ public class Category implements SimpleEntity {
     }
 
     public static Category of(Long id, String name) {
-        return new Category(id,name);
+        return new Category(id, name);
     }
 
     @Override

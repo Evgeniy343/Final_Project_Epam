@@ -1,4 +1,4 @@
-package com.epam.jwd.web.db.exception;
+package com.epam.jwd.web.exception;
 
 public class CouldNotInitializeConnectionPoolError extends Error {
 

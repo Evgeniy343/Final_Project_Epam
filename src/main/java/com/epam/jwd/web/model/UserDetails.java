@@ -1,15 +1,13 @@
-package com.epam.jwd.web.model.impl;
-
-import com.epam.jwd.web.model.Entity;
+package com.epam.jwd.web.model;
 
 import java.util.Objects;
 
 public class UserDetails implements Entity {
-    private final Long id;
-    private final Integer point;
-    private final Bonus bonus;
-    private final Boolean ban;
-    private final User user;
+    private Long id;
+    private Integer point;
+    private Bonus bonus;
+    private Boolean ban;
+    private User user;
 
     private UserDetails(Long id, Integer point, Bonus bonus, Boolean ban, User user) {
         this.id = id;
@@ -17,6 +15,14 @@ public class UserDetails implements Entity {
         this.bonus = bonus;
         this.ban = ban;
         this.user = user;
+    }
+
+    private UserDetails() {
+
+    }
+
+    static UserDetails of() {
+        return new UserDetails();
     }
 
     public static Builder with() {

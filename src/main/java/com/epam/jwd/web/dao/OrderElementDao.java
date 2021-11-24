@@ -1,2 +1,6 @@
-package com.epam.jwd.web.dao;public interface OrderElementDao {
+package com.epam.jwd.web.dao;
+
+import com.epam.jwd.web.model.OrderElement;
+
+public interface OrderElementDao extends EntityDao<OrderElement>{
 }

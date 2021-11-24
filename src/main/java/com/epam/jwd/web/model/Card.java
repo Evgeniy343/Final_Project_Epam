@@ -1,17 +1,23 @@
-package com.epam.jwd.web.model.impl;
-
-import com.epam.jwd.web.model.Entity;
+package com.epam.jwd.web.model;
 
 import java.util.Objects;
 
 public class Card implements Entity {
 
-    private final Long id;
-    private final Float amount;
+    private Long id;
+    private Float amount;
 
     private Card(Long id, Float amount) {
         this.id = id;
         this.amount = amount;
+    }
+
+    private Card() {
+
+    }
+
+    static Card of() {
+        return new Card();
     }
 
 

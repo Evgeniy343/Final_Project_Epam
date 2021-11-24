@@ -1,23 +1,27 @@
-package com.epam.jwd.web.model.impl;
+package com.epam.jwd.web.model;
 
-import com.epam.jwd.web.model.Entity;
-import com.epam.jwd.web.model.context.*;
-
-import java.util.List;
 import java.util.Objects;
 
 public class User implements Entity {
 
-    private final Long id;
-    private final String login;
-    private final String password;
-    private final Role role;
+    private Long id;
+    private String login;
+    private String password;
+    private Role role;
 
     private User(Long id, String login, String password, Role role) {
         this.id = id;
         this.login = login;
         this.password = password;
         this.role = role;
+    }
+
+    private User() {
+
+    }
+
+    static User of() {
+        return new User();
     }
 
     public static Builder with() {
@@ -54,7 +58,7 @@ public class User implements Entity {
         }
 
         public User build() {
-            return new User(id,login,password,role);
+            return new User(id, login, password, role);
         }
     }
 

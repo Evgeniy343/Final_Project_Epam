@@ -1,19 +1,20 @@
 package com.epam.jwd.web.dao.extractor.impl;
 
 import com.epam.jwd.web.dao.extractor.ResultSetExtractor;
-import com.epam.jwd.web.model.TypeModel;
-import com.epam.jwd.web.model.context.EntityContext;
-import com.epam.jwd.web.model.exception.EntityNotFoundException;
-import com.epam.jwd.web.model.factory.EntityFactory;
-import com.epam.jwd.web.model.impl.UserDetails;
+import com.epam.jwd.web.exception.EntityNotFoundException;
+import com.epam.jwd.web.model.Bonus;
+import com.epam.jwd.web.model.SimpleEntity;
+import com.epam.jwd.web.model.TypeEntity;
+import com.epam.jwd.web.model.UserDetails;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UserDetailsSetExtractor implements ResultSetExtractor<UserDetails> {
-    private static final String ID_FIELD_NAME = "id";
-    private static final String POINT_FIELD_NAME = "point";
-    private static final String BAN_FIELD_NAME = "ban";
+    private static final String ID_FIELD_NAME = "ud.id";
+    private static final String POINT_FIELD_NAME = "ud.point";
+    private static final String BAN_FIELD_NAME = "ud.ban";
+    private static final String BONUS_NAME_FIELD_NAME = "b.name";
 
     private UserDetailsSetExtractor() {
     }
@@ -23,16 +24,16 @@ public class UserDetailsSetExtractor implements ResultSetExtractor<UserDetails> 
     }
 
     @Override
-    public UserDetails extract(ResultSet resultSet, EntityFactory factory) throws SQLException, EntityNotFoundException {
-        EntityContext userDetailsContext = pushUserDetailsContext(resultSet);
-        return (UserDetails) factory.createModel(TypeModel.USER_DETAILS_MODEL, userDetailsContext, null);
-    }
-
-    private EntityContext pushUserDetailsContext(ResultSet resultSet) throws SQLException {
-        return EntityContext.with()
+    public UserDetails extract(ResultSet resultSet) throws SQLException, EntityNotFoundException {
+        return UserDetails.with()
                 .id(resultSet.getLong(ID_FIELD_NAME))
                 .point(resultSet.getInt(POINT_FIELD_NAME))
                 .ban(resultSet.getBoolean(BAN_FIELD_NAME))
+                .bonus(createBonus(resultSet))
                 .build();
+    }
+
+    private Bonus createBonus(ResultSet resultSet) throws EntityNotFoundException, SQLException {
+        return (Bonus) SimpleEntity.newInstance(TypeEntity.BONUS, null, resultSet.getString(BONUS_NAME_FIELD_NAME));
     }
 }

@@ -1,6 +1,4 @@
-package com.epam.jwd.web.model.impl;
-
-import com.epam.jwd.web.model.SimpleEntity;
+package com.epam.jwd.web.model;
 
 import java.util.Objects;
 
@@ -14,10 +12,9 @@ public class City implements SimpleEntity {
         this.name = name;
     }
 
-    public static City of(Long id, String name) {
-        return new City(id,name);
+    static City of(Long id, String name) {
+        return new City(id, name);
     }
-
 
 
     @Override

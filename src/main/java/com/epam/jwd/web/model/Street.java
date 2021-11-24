@@ -1,6 +1,4 @@
-package com.epam.jwd.web.model.impl;
-
-import com.epam.jwd.web.model.SimpleEntity;
+package com.epam.jwd.web.model;
 
 import java.util.Objects;
 
@@ -14,7 +12,7 @@ public class Street implements SimpleEntity {
     }
 
     public static Street of(Long id, String name) {
-        return new Street(id,name);
+        return new Street(id, name);
     }
 
     @Override

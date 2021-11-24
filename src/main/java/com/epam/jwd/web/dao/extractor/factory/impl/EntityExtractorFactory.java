@@ -1,23 +1,44 @@
-package com.epam.jwd.web.dao.extractor.factory;
+package com.epam.jwd.web.dao.extractor.factory.impl;
 
 import com.epam.jwd.web.dao.extractor.ResultSetExtractor;
+import com.epam.jwd.web.dao.extractor.factory.ExtractorFactory;
 import com.epam.jwd.web.dao.extractor.impl.*;
+import com.epam.jwd.web.exception.EntityExtractorNotFoundException;
 import com.epam.jwd.web.model.Entity;
 import com.epam.jwd.web.model.TypeEntity;
 
-public class EntityExtractorFactory implements ExtractorFactory {
+import java.util.concurrent.locks.ReentrantLock;
 
-    EntityExtractorFactory() {
+public class EntityExtractorFactory implements ExtractorFactory {
+    private static EntityExtractorFactory instance;
+    private static final ReentrantLock lock = new ReentrantLock();
+
+    private EntityExtractorFactory() {
+    }
+
+    public static EntityExtractorFactory getInstance() {
+        if (instance == null) {
+            lock.lock();
+            {
+                if (instance == null) {
+                    instance = new EntityExtractorFactory();
+                }
+            }
+            lock.unlock();
+        }
+        return instance;
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public <T extends Entity> ResultSetExtractor<T> createExtractor(TypeEntity type) {
+    public <T extends Entity> ResultSetExtractor<T> createExtractor(TypeEntity type)
+            throws EntityExtractorNotFoundException {
         return (ResultSetExtractor<T>) chooseExtractor(type);
     }
 
-    private ResultSetExtractor<? extends Entity> chooseExtractor(TypeEntity type){
-        switch (type){
+    private ResultSetExtractor<? extends Entity> chooseExtractor(TypeEntity type)
+            throws EntityExtractorNotFoundException {
+        switch (type) {
             case USER:
                 return UserSetExtractor.of();
             case USER_DETAILS:
@@ -32,7 +53,8 @@ public class EntityExtractorFactory implements ExtractorFactory {
                 return CafeOrderSetExtractor.of();
             case ADDRESS:
                 return AddressSetExtractor.of();
+            default:
+                throw new EntityExtractorNotFoundException("This type of extractor is not find!");
         }
-        return null;
     }
 }

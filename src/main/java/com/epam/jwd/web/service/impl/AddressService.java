@@ -1,7 +1,8 @@
-package com.epam.jwd.web.service;
+package com.epam.jwd.web.service.impl;
 
 import com.epam.jwd.web.dao.AddressDao;
 import com.epam.jwd.web.model.Address;
+import com.epam.jwd.web.service.EntityService;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -17,11 +18,11 @@ public class AddressService implements EntityService<Address> {
         this.addressDao = addressDao;
     }
 
-    static AddressService getInstance(AddressDao addressDao){
-        if(instance == null){
+    static AddressService getInstance(AddressDao addressDao) {
+        if (instance == null) {
             lock.lock();
             {
-                if(instance == null){
+                if (instance == null) {
                     instance = new AddressService(addressDao);
                 }
             }

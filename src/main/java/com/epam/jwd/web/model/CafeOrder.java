@@ -1,23 +1,20 @@
-package com.epam.jwd.web.model.impl;
+package com.epam.jwd.web.model;
 
-import com.epam.jwd.web.model.Entity;
-
-import java.math.BigDecimal;
-import java.util.Date;
+import java.sql.Date;
 import java.util.Objects;
 
 public class CafeOrder implements Entity {
 
-    private final Long id;
-    private final User user;
-    private final Address address;
-    private final BigDecimal price;
-    private final Date date;
-    private final Status status;
-    private final String review;
-    private final Integer rating;
+    private Long id;
+    private User user;
+    private Address address;
+    private Float price;
+    private Date date;
+    private Status status;
+    private String review;
+    private Integer rating;
 
-    private CafeOrder(Long id, User user, Address address, BigDecimal price, Date date, Status status
+    private CafeOrder(Long id, User user, Address address, Float price, Date date, Status status
             , String review, Integer rating) {
         this.id = id;
         this.user = user;
@@ -29,6 +26,14 @@ public class CafeOrder implements Entity {
         this.rating = rating;
     }
 
+    private CafeOrder() {
+    }
+
+    static CafeOrder of() {
+        return new CafeOrder();
+    }
+
+
     public static Builder with() {
         return new Builder();
     }
@@ -37,7 +42,7 @@ public class CafeOrder implements Entity {
         private Long id;
         private User user;
         private Address address;
-        private BigDecimal price;
+        private Float price;
         private Date date;
         private Status status;
         private String review;
@@ -61,7 +66,7 @@ public class CafeOrder implements Entity {
             return this;
         }
 
-        public Builder price(BigDecimal price) {
+        public Builder price(Float price) {
             this.price = price;
             return this;
         }
@@ -87,7 +92,7 @@ public class CafeOrder implements Entity {
         }
 
         public CafeOrder build() {
-            return new CafeOrder(id, user,address,price,date,status,review,rating);
+            return new CafeOrder(id, user, address, price, date, status, review, rating);
         }
     }
 
@@ -101,14 +106,14 @@ public class CafeOrder implements Entity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CafeOrder cafeOrder = (CafeOrder) o;
-        return rating == cafeOrder.rating
-                && Objects.equals(id, cafeOrder.id)
+        return Objects.equals(id, cafeOrder.id)
                 && Objects.equals(user, cafeOrder.user)
                 && Objects.equals(address, cafeOrder.address)
                 && Objects.equals(price, cafeOrder.price)
                 && Objects.equals(date, cafeOrder.date)
-                && Objects.equals(status, cafeOrder.status)
-                && Objects.equals(review, cafeOrder.review);
+                && status == cafeOrder.status
+                && Objects.equals(review, cafeOrder.review)
+                && Objects.equals(rating, cafeOrder.rating);
     }
 
     @Override
@@ -130,7 +135,7 @@ public class CafeOrder implements Entity {
                 '}';
     }
 
-    public BigDecimal getPrice() {
+    public Float getPrice() {
         return price;
     }
 

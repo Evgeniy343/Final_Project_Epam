@@ -1,20 +1,16 @@
-package com.epam.jwd.web.model.impl;
-
-import com.epam.jwd.web.model.Entity;
+package com.epam.jwd.web.model;
 
 import java.util.Objects;
 
 public class OrderElement implements Entity {
 
-    private final Long id;
-    private final Meal meal;
-    private final Double mealPrice;
-    private final Integer mealAmount;
-    private final String mealName;
-    private final CafeOrder order;
+    private Meal meal;
+    private Float mealPrice;
+    private Integer mealAmount;
+    private String mealName;
+    private CafeOrder order;
 
-    private OrderElement(Long id, Meal meal, Double mealPrice, Integer mealAmount, String mealName, CafeOrder order) {
-        this.id = id;
+    private OrderElement(Meal meal, Float mealPrice, Integer mealAmount, String mealName, CafeOrder order) {
         this.meal = meal;
         this.mealPrice = mealPrice;
         this.mealAmount = mealAmount;
@@ -22,14 +18,21 @@ public class OrderElement implements Entity {
         this.order = order;
     }
 
+    private OrderElement() {
+
+    }
+
+    static OrderElement of() {
+        return new OrderElement();
+    }
+
     public static Builder with() {
         return new Builder();
     }
 
     public static final class Builder {
-        private Long id;
         private Meal meal;
-        private Double mealPrice;
+        private Float mealPrice;
         private Integer mealAmount;
         private String mealName;
         private CafeOrder order;
@@ -37,17 +40,12 @@ public class OrderElement implements Entity {
         public Builder() {
         }
 
-        public Builder id(Long id) {
-            this.id = id;
-            return this;
-        }
-
         public Builder meal(Meal meal) {
             this.meal = meal;
             return this;
         }
 
-        public Builder mealPrice(Double mealPrice) {
+        public Builder mealPrice(Float mealPrice) {
             this.mealPrice = mealPrice;
             return this;
         }
@@ -68,18 +66,16 @@ public class OrderElement implements Entity {
         }
 
         public OrderElement build() {
-            return new OrderElement(id, meal, mealPrice, mealAmount,mealName,order);
+            return new OrderElement(meal, mealPrice, mealAmount, mealName, order);
         }
     }
-
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         OrderElement that = (OrderElement) o;
-        return Objects.equals(id, that.id)
-                && Objects.equals(meal, that.meal)
+        return Objects.equals(meal, that.meal)
                 && Objects.equals(mealPrice, that.mealPrice)
                 && Objects.equals(mealAmount, that.mealAmount)
                 && Objects.equals(mealName, that.mealName)
@@ -88,14 +84,13 @@ public class OrderElement implements Entity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, meal, mealPrice, mealAmount, mealName, order);
+        return Objects.hash(meal, mealPrice, mealAmount, mealName, order);
     }
 
     @Override
     public String toString() {
         return "OrderElement{" +
-                "id=" + id +
-                ", meal=" + meal +
+                "meal=" + meal +
                 ", mealPrice=" + mealPrice +
                 ", mealAmount=" + mealAmount +
                 ", mealName='" + mealName + '\'' +
@@ -105,10 +100,10 @@ public class OrderElement implements Entity {
 
     @Override
     public Long getId() {
-        return id;
+        throw new UnsupportedOperationException();
     }
 
-    public Double getMealPrice() {
+    public Float getMealPrice() {
         return mealPrice;
     }
 

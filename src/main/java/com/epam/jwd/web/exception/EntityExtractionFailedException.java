@@ -1,4 +1,4 @@
-package com.epam.jwd.web.dao.exception;
+package com.epam.jwd.web.exception;
 
 public class EntityExtractionFailedException extends Exception {
 

@@ -1,7 +1,8 @@
-package com.epam.jwd.web.dao.preparator;
+package com.epam.jwd.web.dao;
 
 public enum TypeStatementPreparator {
     CREATE,
     DELETE,
-    UPDATE
+    UPDATE,
+    READ_BY_ID
 }

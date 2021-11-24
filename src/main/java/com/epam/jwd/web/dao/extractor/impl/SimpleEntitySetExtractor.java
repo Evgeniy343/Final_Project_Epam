@@ -1,14 +1,10 @@
 package com.epam.jwd.web.dao.extractor.impl;
 
-import com.epam.jwd.web.dao.exception.EntityExtractorNotFoundException;
 import com.epam.jwd.web.dao.extractor.ResultSetExtractor;
-import com.epam.jwd.web.dao.extractor.TypeExtractor;
+import com.epam.jwd.web.exception.EntityExtractorNotFoundException;
+import com.epam.jwd.web.exception.EntityNotFoundException;
 import com.epam.jwd.web.model.SimpleEntity;
-import com.epam.jwd.web.model.TypeModel;
-import com.epam.jwd.web.model.context.SimpleEntityContext;
-import com.epam.jwd.web.model.exception.EntityNotFoundException;
-import com.epam.jwd.web.model.factory.EntityFactory;
-import com.epam.jwd.web.model.impl.*;
+import com.epam.jwd.web.model.TypeEntity;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,41 +13,41 @@ public class SimpleEntitySetExtractor implements ResultSetExtractor<SimpleEntity
     private static final String ID_FIELD_NAME = "id";
     private static final String NAME_FIELD_NAME = "name";
 
-    private final TypeExtractor type;
+    private final TypeEntity type;
 
-    private SimpleEntitySetExtractor(TypeExtractor type) {
+    private SimpleEntitySetExtractor(TypeEntity type) {
         this.type = type;
     }
 
-    public static SimpleEntitySetExtractor of(TypeExtractor type) {
+    public static SimpleEntitySetExtractor of(TypeEntity type) {
         return new SimpleEntitySetExtractor(type);
     }
 
     @Override
-    public SimpleEntity extract(ResultSet resultSet, EntityFactory factory) throws SQLException, EntityExtractorNotFoundException, EntityNotFoundException {
-        SimpleEntityContext simpleContext = SimpleEntityContext.of(resultSet.getLong(ID_FIELD_NAME)
-                , resultSet.getString(NAME_FIELD_NAME));
+    public SimpleEntity extract(ResultSet resultSet) throws SQLException, EntityNotFoundException
+            , EntityExtractorNotFoundException {
         switch (type) {
-            case STREET_EXTRACTOR:
-                return (Street) factory.createModel(TypeModel.STREET_MODEL, null, simpleContext);
-            case INGREDIENT_EXTRACTOR:
-                return (Ingredient) factory.createModel(TypeModel.INGREDIENT_MODEL, null, simpleContext);
-            case BONUS_EXTRACTOR:
-                return (Bonus) factory.createModel(TypeModel.BONUS_MODEL, null, simpleContext);
-            case ROLE_EXTRACTOR:
-                return (Role) factory.createModel(TypeModel.ROLE_MODEL, null, simpleContext);
-            case CITY_EXTRACTOR:
-                return (City) factory.createModel(TypeModel.CITY_MODEL, null, simpleContext);
-            case CATEGORY_EXTRACTOR:
-                return (Category) factory.createModel(TypeModel.CATEGORY_MODEL, null, simpleContext);
-            case STATUS_EXTRACTOR:
-                return (Status) factory.createModel(TypeModel.STATUS_MODEL, null, simpleContext);
+            case CITY:
+                return SimpleEntity.newInstance(TypeEntity.CITY, resultSet.getLong(ID_FIELD_NAME)
+                        , resultSet.getString(NAME_FIELD_NAME));
+            case BONUS:
+                return SimpleEntity.newInstance(TypeEntity.BONUS, resultSet.getLong(ID_FIELD_NAME)
+                        , resultSet.getString(NAME_FIELD_NAME));
+            case STREET:
+                return SimpleEntity.newInstance(TypeEntity.STREET, resultSet.getLong(ID_FIELD_NAME)
+                        , resultSet.getString(NAME_FIELD_NAME));
+            case INGREDIENT:
+                return SimpleEntity.newInstance(TypeEntity.INGREDIENT, resultSet.getLong(ID_FIELD_NAME)
+                        , resultSet.getString(NAME_FIELD_NAME));
+            case CATEGORY:
+                return SimpleEntity.newInstance(TypeEntity.CATEGORY, resultSet.getLong(ID_FIELD_NAME)
+                        , resultSet.getString(NAME_FIELD_NAME));
             default:
-                throw new EntityExtractorNotFoundException("Entity extractor not found!");
+                throw new EntityExtractorNotFoundException("This extractor not found!");
         }
     }
 
-    public TypeExtractor getType() {
+    public TypeEntity getType() {
         return type;
     }
 }

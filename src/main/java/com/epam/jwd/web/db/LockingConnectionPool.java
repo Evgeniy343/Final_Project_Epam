@@ -1,7 +1,7 @@
 package com.epam.jwd.web.db;
 
-import com.epam.jwd.web.db.exception.CouldNotInitializeConnectionPoolError;
 import com.epam.jwd.web.db.impl.ConnectionPool;
+import com.epam.jwd.web.exception.CouldNotInitializeConnectionPoolError;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -118,8 +118,7 @@ public class LockingConnectionPool implements ConnectionPool {
         try {
             List<ProxyConnection> connections = new ArrayList<>();
             for (int i = 0; i < amount; i++) {
-                final Connection conn = DriverManager
-                        .getConnection(DB_URL, DB_USER, DB_PASSWORD);
+                final Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
                 LOGGER.info("initialized connection {}", conn);
                 final ProxyConnection proxyConnection = ProxyConnection.of(conn, this);
                 connections.add(proxyConnection);

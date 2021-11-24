@@ -1,6 +1,4 @@
-package com.epam.jwd.web.model.impl;
-
-import com.epam.jwd.web.model.SimpleEntity;
+package com.epam.jwd.web.model;
 
 import java.util.Objects;
 
@@ -14,7 +12,7 @@ public class Bonus implements SimpleEntity {
     }
 
     public static Bonus of(Long id, String name) {
-        return new Bonus(id,name);
+        return new Bonus(id, name);
     }
 
     @Override
