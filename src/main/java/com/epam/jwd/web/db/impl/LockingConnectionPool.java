@@ -1,6 +1,6 @@
-package com.epam.jwd.web.db;
+package com.epam.jwd.web.db.impl;
 
-import com.epam.jwd.web.db.impl.ConnectionPool;
+import com.epam.jwd.web.db.ConnectionPool;
 import com.epam.jwd.web.exception.CouldNotInitializeConnectionPoolError;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -72,6 +72,11 @@ public class LockingConnectionPool implements ConnectionPool {
         } finally {
             lock.unlock();
         }
+    }
+
+    @Override
+    public boolean isInitialized() {
+        return initialized;
     }
 
     @Override

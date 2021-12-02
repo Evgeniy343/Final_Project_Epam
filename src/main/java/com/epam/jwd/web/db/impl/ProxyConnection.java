@@ -1,6 +1,6 @@
-package com.epam.jwd.web.db;
+package com.epam.jwd.web.db.impl;
 
-import com.epam.jwd.web.db.impl.ConnectionPool;
+import com.epam.jwd.web.db.ConnectionPool;
 
 import java.sql.*;
 import java.util.Map;
@@ -22,6 +22,10 @@ public class ProxyConnection implements Connection {
 
     public ConnectionPool getPool() {
         return pool;
+    }
+
+    public Connection getConnection() {
+        return connection;
     }
 
     @Override
